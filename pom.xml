@@ -11,9 +11,9 @@
     <name>SklepMC Plugin</name>
 
     <modules>
-        <module>sklepmc-plugin-shared</module>
-        <module>sklepmc-plugin-bukkit</module>
-        <module>sklepmc-plugin-sponge</module>
+        <module>shared</module>
+        <module>bukkit</module>
+        <module>sponge</module>
     </modules>
 
     <dependencies>
