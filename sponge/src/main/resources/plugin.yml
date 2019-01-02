@@ -1,4 +1,0 @@
-name: SklepMC
-version: ${project.version}-git-${git.commit.id.abbrev}
-main: pl.daffit.sklepmc.plugin.SmBukkitPlugin
-author: Daffit
