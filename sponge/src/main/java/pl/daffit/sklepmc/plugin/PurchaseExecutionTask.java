@@ -67,23 +67,6 @@ public class PurchaseExecutionTask implements Runnable {
             String transactionId = executionTask.getTransactionId();
             boolean requireOnline = executionTask.isRequireOnline();
 
-            // change transaction status to COMPLETED
-            boolean updated;
-            try {
-                updated = TransactionInfo.updateStatus(apiContext, transactionId, TransactionInfo.TransactionStatus.COMPLETED.name());
-            } catch (ApiException exception) {
-                ApiError apiError = exception.getApiError();
-                this.logger.warn("Nie udalo sie zmienic statusu transakcji "
-                        + transactionId + ", przerwano wykonywanie: " + apiError.getType() + ", " + apiError.getMessage());
-                continue;
-            }
-
-            // handle failure to prevent multiple executions
-            if (!updated) {
-                this.logger.warn("Nie udalo sie zmienic statusu transakcji " + transactionId + ", przerwano wykonywanie.");
-                continue;
-            }
-
             // run commands
             for (ExecutionCommandInfo command : commands) {
 
@@ -97,6 +80,23 @@ public class PurchaseExecutionTask implements Runnable {
 
                 String commandText = command.getText();
                 this.dispatchCommand(commandText);
+            }
+
+            // change transaction status to COMPLETED
+            boolean updated;
+            try {
+                updated = TransactionInfo.updateStatus(apiContext, transactionId, TransactionInfo.TransactionStatus.COMPLETED.name());
+            } catch (ApiException exception) {
+                ApiError apiError = exception.getApiError();
+                this.logger.warn("Nie udalo sie zmienic statusu transakcji "
+                        + transactionId + ", przerwano wykonywanie: " + apiError.getType() + ", " + apiError.getMessage());
+                continue;
+            }
+
+            // handle failure just for information
+            // should not really be a case
+            if (!updated) {
+                this.logger.warn("Nie udalo sie zmienic statusu transakcji " + transactionId + ".");
             }
         }
     }
