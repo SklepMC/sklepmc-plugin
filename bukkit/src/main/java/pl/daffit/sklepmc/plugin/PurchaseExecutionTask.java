@@ -57,6 +57,7 @@ public class PurchaseExecutionTask implements Runnable {
         }
 
         List<ExecutionTaskInfo> executionTasks = executionInfo.getExecutionTasks();
+        task_execution:
         for (ExecutionTaskInfo executionTask : executionTasks) {
 
             List<ExecutionCommandInfo> commands = executionTask.getCommands();
@@ -70,7 +71,7 @@ public class PurchaseExecutionTask implements Runnable {
                 if (requireOnline) {
                     Player playerExact = this.plugin.getServer().getPlayerExact(command.getTarget());
                     if (playerExact == null) {
-                        continue;
+                        continue task_execution;
                     }
                 }
 
