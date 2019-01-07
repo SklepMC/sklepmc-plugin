@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package pl.daffit.sklepmc.plugin;
+package pl.daffit.sklepmc.plugin.sponge;
 
 import com.google.inject.Inject;
 import ninja.leaping.configurate.ConfigurationNode;

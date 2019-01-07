@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package pl.daffit.sklepmc.plugin;
+package pl.daffit.sklepmc.plugin.sponge;
 
 import org.slf4j.Logger;
 import org.spongepowered.api.Game;
@@ -28,6 +28,7 @@ import pl.daffit.sklepmc.api.shop.ExecutionCommandInfo;
 import pl.daffit.sklepmc.api.shop.ExecutionInfo;
 import pl.daffit.sklepmc.api.shop.ExecutionTaskInfo;
 import pl.daffit.sklepmc.api.shop.TransactionInfo;
+import pl.daffit.sklepmc.plugin.bukkit.SmSpongePlugin;
 
 import javax.inject.Inject;
 import java.util.List;

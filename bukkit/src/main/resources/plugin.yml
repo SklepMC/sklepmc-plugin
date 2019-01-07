@@ -1,5 +1,5 @@
 name: SklepMC
 version: ${project.version}-git-${git.commit.id.abbrev}
-main: pl.daffit.sklepmc.plugin.SmBukkitPlugin
+main: pl.daffit.sklepmc.plugin.bukkit.SmBukkitPlugin
 description: SklepMC Bukkit Plugin
 author: Daffit

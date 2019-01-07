@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package pl.daffit.sklepmc.plugin;
+package pl.daffit.sklepmc.plugin.bukkit;
 
 import org.bukkit.Server;
 import org.bukkit.entity.Player;
