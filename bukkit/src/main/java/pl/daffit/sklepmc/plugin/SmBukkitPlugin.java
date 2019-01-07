@@ -18,7 +18,6 @@
  */
 package pl.daffit.sklepmc.plugin;
 
-import org.apache.commons.lang.StringUtils;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import pl.daffit.sklepmc.api.ApiContext;
@@ -46,8 +45,16 @@ public class SmBukkitPlugin extends JavaPlugin {
 
         // validate configuration and create ApiContext
         FileConfiguration config = this.getConfig();
+        String shop = config.getString("shop");
         String key = config.getString("key");
         this.serverId = config.getInt("server-id");
+
+        if (shop == null) {
+            this.getLogger().log(Level.SEVERE, "Nie znaleziono poprawnie ustawionej wartosci 'shop' w config.yml," +
+                    " nalezy ja ustawic i zrestatowac serwer.");
+            this.getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
 
         if (key == null) {
             this.getLogger().log(Level.SEVERE, "Nie znaleziono poprawnie ustawionej wartosci 'key' w config.yml," +
@@ -63,17 +70,8 @@ public class SmBukkitPlugin extends JavaPlugin {
             return;
         }
 
-        String[] keyParts = StringUtils.split(key, '-');
-        if (keyParts.length != 2) {
-            this.getLogger().log(Level.SEVERE, "Wprowadzona wartosc 'key' w config.yml jest w nieprawidlowym formacie," +
-                    " nalezy ja skorygowac i zrestatowac serwer.");
-            this.getServer().getPluginManager().disablePlugin(this);
-            return;
-        }
-
-        String shopId = keyParts[0];
-        String secret = keyParts[1];
-        this.apiContext = new ApiContext(shopId, secret);
+        // create context
+        this.apiContext = new ApiContext(shop, key);
 
         // custom api url
         String apiUrl = this.getConfig().getString("api-url");

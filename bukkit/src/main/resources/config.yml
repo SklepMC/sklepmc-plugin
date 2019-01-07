@@ -1,4 +1,7 @@
 
+# Id sklepu.
+shop: ""
+
 # Klucz prywatny API.
 key: ""
 

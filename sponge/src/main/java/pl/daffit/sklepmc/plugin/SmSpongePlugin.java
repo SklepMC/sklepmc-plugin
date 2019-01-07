@@ -22,7 +22,6 @@ import com.google.inject.Inject;
 import ninja.leaping.configurate.ConfigurationNode;
 import ninja.leaping.configurate.commented.CommentedConfigurationNode;
 import ninja.leaping.configurate.loader.ConfigurationLoader;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.spongepowered.api.Game;
 import org.spongepowered.api.config.DefaultConfig;
@@ -74,8 +73,15 @@ public class SmSpongePlugin {
         this.saveDefaultConfig();
 
         // validate configuration and create ApiContext
+        String shop = this.config.getNode("shop").getString("shop");
         String key = this.config.getNode("key").getString("key");
         this.serverId = this.config.getNode("server-id").getInt();
+
+        if (shop == null) {
+            this.logger.error("Nie znaleziono poprawnie ustawionej wartosci 'shop' w config.yml," +
+                    " nalezy ja ustawic i zrestatowac serwer.");
+            return;
+        }
 
         if (key == null) {
             this.logger.error("Nie znaleziono poprawnie ustawionej wartosci 'key' w config.yml," +
@@ -89,16 +95,8 @@ public class SmSpongePlugin {
             return;
         }
 
-        String[] keyParts = StringUtils.split(key, '-');
-        if (keyParts.length != 2) {
-            this.logger.error("Wprowadzona wartosc 'key' w config.yml jest w nieprawidlowym formacie," +
-                    " nalezy ja skorygowac i zrestatowac serwer.");
-            return;
-        }
-
-        String shopId = keyParts[0];
-        String secret = keyParts[1];
-        this.apiContext = new ApiContext(shopId, secret);
+        // create context
+        this.apiContext = new ApiContext(shop, key);
 
         // custom api url
         String apiUrl = this.config.getNode("api-url").getString();
@@ -122,11 +120,11 @@ public class SmSpongePlugin {
 
             this.configFile.createNewFile();
             this.config = this.configManager.load();
+            this.config.getNode("shop").setValue("");
             this.config.getNode("key").setValue("");
             this.config.getNode("server-id").setValue(0);
             this.configManager.save(this.config);
-        }
-        catch (IOException exception) {
+        } catch (IOException exception) {
             this.logger.error("Nie udalo sie stworzyc pliku konfiguracji. Prosze zweryfikowac uprawnienia.");
         }
     }
