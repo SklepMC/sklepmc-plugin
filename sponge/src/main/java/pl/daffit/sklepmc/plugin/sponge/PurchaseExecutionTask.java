@@ -28,7 +28,6 @@ import pl.daffit.sklepmc.api.shop.ExecutionCommandInfo;
 import pl.daffit.sklepmc.api.shop.ExecutionInfo;
 import pl.daffit.sklepmc.api.shop.ExecutionTaskInfo;
 import pl.daffit.sklepmc.api.shop.TransactionInfo;
-import pl.daffit.sklepmc.plugin.bukkit.SmSpongePlugin;
 
 import javax.inject.Inject;
 import java.util.List;
