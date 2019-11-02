@@ -16,21 +16,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package pl.daffit.sklepmc.plugin.bukkit;
+package pl.sklepmc.plugin.bukkit;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
-import pl.daffit.sklepmc.api.ApiContext;
+import pl.sklepmc.api.ShopContext;
 
 import java.util.logging.Level;
 
 public class SmBukkitPlugin extends JavaPlugin {
 
-    private ApiContext apiContext;
+    private ShopContext shopContext;
     private int serverId;
 
-    public ApiContext getApiContext() {
-        return this.apiContext;
+    public ShopContext getShopContext() {
+        return this.shopContext;
     }
 
     public int getServerId() {
@@ -71,12 +71,12 @@ public class SmBukkitPlugin extends JavaPlugin {
         }
 
         // create context
-        this.apiContext = new ApiContext(shop, key);
+        this.shopContext = new ShopContext(shop, key);
 
         // custom api url
         String apiUrl = this.getConfig().getString("api-url");
         if (apiUrl != null) {
-            this.apiContext.setMainUrl(apiUrl);
+            this.shopContext.setMainUrl(apiUrl);
         }
 
         // start task for checking transactions in EXECUTION state

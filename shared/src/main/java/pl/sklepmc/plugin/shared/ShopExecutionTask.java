@@ -16,43 +16,42 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package pl.daffit.sklepmc.plugin.bukkit;
+package pl.sklepmc.plugin.shared;
 
-import org.bukkit.Server;
-import org.bukkit.entity.Player;
-import pl.daffit.sklepmc.api.ApiContext;
-import pl.daffit.sklepmc.api.ApiError;
-import pl.daffit.sklepmc.api.ApiException;
-import pl.daffit.sklepmc.api.shop.ExecutionCommandInfo;
-import pl.daffit.sklepmc.api.shop.ExecutionInfo;
-import pl.daffit.sklepmc.api.shop.ExecutionTaskInfo;
-import pl.daffit.sklepmc.api.shop.TransactionInfo;
+import pl.sklepmc.api.ApiError;
+import pl.sklepmc.api.ApiException;
+import pl.sklepmc.api.ShopContext;
+import pl.sklepmc.api.shop.ExecutionCommandInfo;
+import pl.sklepmc.api.shop.ExecutionInfo;
+import pl.sklepmc.api.shop.ExecutionTaskInfo;
+import pl.sklepmc.api.shop.TransactionInfo;
 
 import java.util.List;
 
-public class PurchaseExecutionTask implements Runnable {
+public abstract class ShopExecutionTask implements Runnable {
 
-    private final SmBukkitPlugin plugin;
-    private final Server server;
+    public abstract ShopContext getShopContext();
 
-    public PurchaseExecutionTask(SmBukkitPlugin plugin) {
-        this.plugin = plugin;
-        this.server = plugin.getServer();
-    }
+    public abstract int getServerId();
+
+    public abstract boolean isPlayerOnline(String name);
+
+    public abstract void executeCommand(String command);
+
+    public abstract void warning(String message);
 
     @Override
     public void run() {
 
-        ApiContext apiContext = this.plugin.getApiContext();
-        int serverId = this.plugin.getServerId();
+        ShopContext shopContext = this.getShopContext();
+        int serverId = this.getServerId();
         ExecutionInfo executionInfo;
 
         try {
-            executionInfo = ExecutionInfo.get(apiContext, serverId);
+            executionInfo = ExecutionInfo.get(shopContext, serverId);
         } catch (ApiException exception) {
             ApiError apiError = exception.getApiError();
-            this.plugin.getLogger().warning("Nie udalo sie sprawdzic transakcji oczekujacych wykonania: "
-                    + apiError.getType() + ", " + apiError.getMessage());
+            this.warning("Nie udalo sie sprawdzic transakcji oczekujacych wykonania: " + apiError.getType() + ", " + apiError.getMessage());
             return;
         }
 
@@ -68,24 +67,21 @@ public class PurchaseExecutionTask implements Runnable {
             for (ExecutionCommandInfo command : commands) {
 
                 // execution requires target to be online, skipping
-                if (requireOnline) {
-                    Player playerExact = this.plugin.getServer().getPlayerExact(command.getTarget());
-                    if (playerExact == null) {
-                        continue task_execution;
-                    }
+                if (requireOnline && !this.isPlayerOnline(command.getTarget())) {
+                    continue task_execution;
                 }
 
                 String commandText = command.getText();
-                this.dispatchCommand(commandText);
+                this.executeCommand(commandText);
             }
 
             // change transaction status to COMPLETED
             boolean updated;
             try {
-                updated = TransactionInfo.updateStatus(apiContext, transactionId, TransactionInfo.TransactionStatus.COMPLETED.name());
+                updated = TransactionInfo.updateStatus(shopContext, transactionId, TransactionInfo.TransactionStatus.COMPLETED.name());
             } catch (ApiException exception) {
                 ApiError apiError = exception.getApiError();
-                this.plugin.getLogger().warning("Nie udalo sie zmienic statusu transakcji "
+                this.warning("Nie udalo sie zmienic statusu transakcji "
                         + transactionId + ", przerwano wykonywanie: " + apiError.getType() + ", " + apiError.getMessage());
                 continue;
             }
@@ -93,14 +89,8 @@ public class PurchaseExecutionTask implements Runnable {
             // handle failure just for information
             // should not really be a case
             if (!updated) {
-                this.plugin.getLogger().warning("Nie udalo sie zmienic statusu transakcji " + transactionId + ".");
+                this.warning("Nie udalo sie zmienic statusu transakcji " + transactionId + ".");
             }
         }
-    }
-
-    // as task is run asynchronously we need to run execution of command synchronized
-    // command dispatching is not thread-safe and can cause server crash
-    private void dispatchCommand(String command) {
-        this.server.getScheduler().runTask(this.plugin, () -> this.server.dispatchCommand(this.server.getConsoleSender(), command));
     }
 }

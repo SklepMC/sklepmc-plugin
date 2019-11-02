@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package pl.daffit.sklepmc.plugin.sponge;
+package pl.sklepmc.plugin.sponge;
 
 import com.google.inject.Inject;
 import ninja.leaping.configurate.ConfigurationNode;
@@ -28,15 +28,15 @@ import org.spongepowered.api.config.DefaultConfig;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.game.state.GameStartedServerEvent;
 import org.spongepowered.api.plugin.Plugin;
-import pl.daffit.sklepmc.api.ApiContext;
+import pl.sklepmc.api.ShopContext;
 
 import java.io.File;
 import java.io.IOException;
 
-@Plugin(id = "sklepmc", name = "SklepMC", version = "1.0-SNAPSHOT", description = "SklepMC Sponge Plugin")
+@Plugin(id = "sklepmc", name = "SklepMC", version = "1.1-SNAPSHOT", description = "SklepMC Sponge Plugin")
 public class SmSpongePlugin {
 
-    private ApiContext apiContext;
+    private ShopContext shopContext;
     private int serverId;
     private ConfigurationNode config;
 
@@ -54,8 +54,8 @@ public class SmSpongePlugin {
     @DefaultConfig(sharedRoot = true)
     private ConfigurationLoader<CommentedConfigurationNode> configManager;
 
-    public ApiContext getApiContext() {
-        return this.apiContext;
+    public ShopContext getShopContext() {
+        return this.shopContext;
     }
 
     public int getServerId() {
@@ -96,12 +96,12 @@ public class SmSpongePlugin {
         }
 
         // create context
-        this.apiContext = new ApiContext(shop, key);
+        this.shopContext = new ShopContext(shop, key);
 
         // custom api url
         String apiUrl = this.config.getNode("api-url").getString();
         if (apiUrl != null) {
-            this.apiContext.setMainUrl(apiUrl);
+            this.shopContext.setMainUrl(apiUrl);
         }
 
         // start task for checking transactions in EXECUTION state
