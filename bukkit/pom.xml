@@ -9,14 +9,14 @@
     <name>SklepMC Plugin Bukkit</name>
 
     <parent>
-        <groupId>pl.daffit</groupId>
+        <groupId>pl.sklepmc</groupId>
         <artifactId>sklepmc-plugin</artifactId>
         <version>1.1-SNAPSHOT</version>
     </parent>
 
     <dependencies>
         <dependency>
-            <groupId>pl.daffit</groupId>
+            <groupId>pl.sklepmc</groupId>
             <artifactId>sklepmc-plugin-shared</artifactId>
             <version>1.1-SNAPSHOT</version>
         </dependency>
@@ -68,6 +68,7 @@
                     <artifactSet>
                         <includes>
                             <include>pl.sklepmc:sklepmc-api</include>
+                            <include>pl.sklepmc:sklepmc-plugin-shared</include>
                         </includes>
                     </artifactSet>
                 </configuration>

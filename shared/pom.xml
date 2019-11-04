@@ -9,7 +9,7 @@
     <name>SklepMC Plugin Shared</name>
 
     <parent>
-        <groupId>pl.daffit</groupId>
+        <groupId>pl.sklepmc</groupId>
         <artifactId>sklepmc-plugin</artifactId>
         <version>1.1-SNAPSHOT</version>
     </parent>
