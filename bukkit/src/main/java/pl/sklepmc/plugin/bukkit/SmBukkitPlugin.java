@@ -79,6 +79,12 @@ public class SmBukkitPlugin extends JavaPlugin {
             this.shopContext.setMainUrl(apiUrl);
         }
 
+        // custom shop url
+        String shopUrl = this.getConfig().getString("shop-url");
+        if (shopUrl != null) {
+            this.shopContext.setShopUrl(shopUrl);
+        }
+
         // start task for checking transactions in EXECUTION state
         // check every 30 seconds, one second lasts approximately 20 ticks
         long checkEvery = 30 * 20;
