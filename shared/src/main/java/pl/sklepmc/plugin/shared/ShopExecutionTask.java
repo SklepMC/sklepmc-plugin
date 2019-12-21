@@ -18,13 +18,13 @@
  */
 package pl.sklepmc.plugin.shared;
 
-import pl.sklepmc.api.ApiError;
-import pl.sklepmc.api.ApiException;
-import pl.sklepmc.api.ShopContext;
-import pl.sklepmc.api.shop.ExecutionCommandInfo;
-import pl.sklepmc.api.shop.ExecutionInfo;
-import pl.sklepmc.api.shop.ExecutionTaskInfo;
-import pl.sklepmc.api.shop.TransactionInfo;
+import pl.sklepmc.client.ApiError;
+import pl.sklepmc.client.ApiException;
+import pl.sklepmc.client.ShopContext;
+import pl.sklepmc.client.shop.ExecutionCommandInfo;
+import pl.sklepmc.client.shop.ExecutionInfo;
+import pl.sklepmc.client.shop.ExecutionTaskInfo;
+import pl.sklepmc.client.shop.TransactionInfo;
 
 import java.util.List;
 

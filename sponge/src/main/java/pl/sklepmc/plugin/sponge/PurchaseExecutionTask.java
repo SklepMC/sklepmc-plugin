@@ -20,7 +20,7 @@ package pl.sklepmc.plugin.sponge;
 
 import org.slf4j.Logger;
 import org.spongepowered.api.Game;
-import pl.sklepmc.api.ShopContext;
+import pl.sklepmc.client.ShopContext;
 import pl.sklepmc.plugin.shared.ShopExecutionTask;
 
 import javax.inject.Inject;

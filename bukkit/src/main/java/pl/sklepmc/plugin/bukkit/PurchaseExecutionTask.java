@@ -20,7 +20,7 @@ package pl.sklepmc.plugin.bukkit;
 
 import org.bukkit.Server;
 import pl.sklepmc.plugin.shared.ShopExecutionTask;
-import pl.sklepmc.api.ShopContext;
+import pl.sklepmc.client.ShopContext;
 
 public class PurchaseExecutionTask extends ShopExecutionTask {
 

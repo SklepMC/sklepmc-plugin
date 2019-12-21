@@ -20,7 +20,7 @@ package pl.sklepmc.plugin.bukkit;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
-import pl.sklepmc.api.ShopContext;
+import pl.sklepmc.client.ShopContext;
 
 import java.util.logging.Level;
 

@@ -55,7 +55,7 @@
                     <createDependencyReducedPom>false</createDependencyReducedPom>
                     <artifactSet>
                         <includes>
-                            <include>pl.sklepmc:sklepmc-api</include>
+                            <include>pl.sklepmc:sklepmc-client</include>
                             <include>pl.sklepmc:sklepmc-plugin-shared</include>
                         </includes>
                     </artifactSet>
