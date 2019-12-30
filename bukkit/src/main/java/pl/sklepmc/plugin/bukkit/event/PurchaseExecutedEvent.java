@@ -25,6 +25,7 @@ public class PurchaseExecutedEvent extends Event {
     public List<String> getCommands() {
         return this.commands;
     }
+
     @Override
     public HandlerList getHandlers() {
         return HANDLER_LIST;
