@@ -27,6 +27,7 @@ import pl.sklepmc.client.shop.ExecutionTaskInfo;
 import pl.sklepmc.client.shop.TransactionInfo;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public abstract class ShopExecutionTask implements Runnable {
 
@@ -39,6 +40,8 @@ public abstract class ShopExecutionTask implements Runnable {
     public abstract void executeCommand(String command);
 
     public abstract void warning(String message);
+
+    public abstract void callPurchaseExecuted(TransactionInfo transaction, List<String> commands);
 
     @Override
     public void run() {
@@ -79,6 +82,15 @@ public abstract class ShopExecutionTask implements Runnable {
             boolean updated;
             try {
                 updated = TransactionInfo.updateStatus(shopContext, transactionId, TransactionInfo.TransactionStatus.COMPLETED.name());
+                try {
+                    TransactionInfo transactionInfo = TransactionInfo.get(shopContext, transactionId);
+                    this.callPurchaseExecuted(transactionInfo, commands.stream().map(ExecutionCommandInfo::getText).collect(Collectors.toList()));
+                } catch (ApiException exception) {
+                    ApiError apiError = exception.getApiError();
+                    this.warning("Nie udalo pobrac sie szczegolow transakcji do wykonania wydarzenia PurchaseExecuted dla "
+                            + transactionId + ", blad: " + apiError.getType() + ", " + apiError.getMessage());
+                    continue;
+                }
             } catch (ApiException exception) {
                 ApiError apiError = exception.getApiError();
                 this.warning("Nie udalo sie zmienic statusu transakcji "

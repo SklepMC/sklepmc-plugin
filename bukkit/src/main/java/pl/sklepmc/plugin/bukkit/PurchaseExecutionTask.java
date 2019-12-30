@@ -19,8 +19,12 @@
 package pl.sklepmc.plugin.bukkit;
 
 import org.bukkit.Server;
+import pl.sklepmc.client.shop.TransactionInfo;
+import pl.sklepmc.plugin.bukkit.event.PurchaseExecutedEvent;
 import pl.sklepmc.plugin.shared.ShopExecutionTask;
 import pl.sklepmc.client.ShopContext;
+
+import java.util.List;
 
 public class PurchaseExecutionTask extends ShopExecutionTask {
 
@@ -57,5 +61,10 @@ public class PurchaseExecutionTask extends ShopExecutionTask {
     @Override
     public void warning(String message) {
         this.server.getLogger().warning(message);
+    }
+
+    @Override
+    public void callPurchaseExecuted(TransactionInfo transaction, List<String> commands) {
+        this.server.getPluginManager().callEvent(new PurchaseExecutedEvent(transaction, commands));
     }
 }

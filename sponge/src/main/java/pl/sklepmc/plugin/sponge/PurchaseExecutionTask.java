@@ -21,9 +21,11 @@ package pl.sklepmc.plugin.sponge;
 import org.slf4j.Logger;
 import org.spongepowered.api.Game;
 import pl.sklepmc.client.ShopContext;
+import pl.sklepmc.client.shop.TransactionInfo;
 import pl.sklepmc.plugin.shared.ShopExecutionTask;
 
 import javax.inject.Inject;
+import java.util.List;
 
 public class PurchaseExecutionTask extends ShopExecutionTask {
 
@@ -59,5 +61,10 @@ public class PurchaseExecutionTask extends ShopExecutionTask {
     @Override
     public void warning(String message) {
         this.logger.warn(message);
+    }
+
+    @Override
+    public void callPurchaseExecuted(TransactionInfo transaction, List<String> commands) {
+        // TODO: zaimplementowac event dla Sponge
     }
 }
