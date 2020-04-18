@@ -51,21 +51,21 @@ public class SmBukkitPlugin extends JavaPlugin {
 
         if (shop == null) {
             this.getLogger().log(Level.SEVERE, "Nie znaleziono poprawnie ustawionej wartosci 'shop' w config.yml," +
-                    " nalezy ja ustawic i zrestatowac serwer.");
+                    " nalezy ja ustawic i zrestartowac serwer.");
             this.getServer().getPluginManager().disablePlugin(this);
             return;
         }
 
         if (key == null) {
             this.getLogger().log(Level.SEVERE, "Nie znaleziono poprawnie ustawionej wartosci 'key' w config.yml," +
-                    " nalezy ja ustawic i zrestatowac serwer.");
+                    " nalezy ja ustawic i zrestartowac serwer.");
             this.getServer().getPluginManager().disablePlugin(this);
             return;
         }
 
         if (this.serverId == 0) {
             this.getLogger().log(Level.SEVERE, "Nie znaleziono poprawnie ustawionej wartosci 'server-id' w config.yml," +
-                    " nalezy ja ustawic i zrestatowac serwer.");
+                    " nalezy ja ustawic i zrestartowac serwer.");
             this.getServer().getPluginManager().disablePlugin(this);
             return;
         }

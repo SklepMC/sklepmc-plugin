@@ -79,19 +79,19 @@ public class SmSpongePlugin {
 
         if (shop == null) {
             this.logger.error("Nie znaleziono poprawnie ustawionej wartosci 'shop' w config.yml," +
-                    " nalezy ja ustawic i zrestatowac serwer.");
+                    " nalezy ja ustawic i zrestartowac serwer.");
             return;
         }
 
         if (key == null) {
             this.logger.error("Nie znaleziono poprawnie ustawionej wartosci 'key' w config.yml," +
-                    " nalezy ja ustawic i zrestatowac serwer.");
+                    " nalezy ja ustawic i zrestartowac serwer.");
             return;
         }
 
         if (this.serverId == 0) {
             this.logger.error("Nie znaleziono poprawnie ustawionej wartosci 'server-id' w config.yml," +
-                    " nalezy ja ustawic i zrestatowac serwer.");
+                    " nalezy ja ustawic i zrestartowac serwer.");
             return;
         }
 
