@@ -1,3 +1,13 @@
+################################################################
+#                                                              #
+#    SklepMc Plugin                                            #
+#                                                              #
+#    Nie wiesz jak skonfigurować? Zerknij do dokumentacji!     #
+#    https://manager.okaeri.eu/sklepmc/docs                    #
+#                                                              #
+################################################################
+
+
 # Id sklepu.
 shop: ""
 
