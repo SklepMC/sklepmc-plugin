@@ -39,6 +39,8 @@ public abstract class ShopExecutionTask implements Runnable {
 
     public abstract void executeCommand(String command);
 
+    public abstract void info(String message);
+
     public abstract void warning(String message);
 
     public abstract void callPurchaseExecuted(TransactionInfo transaction, List<String> commands);
@@ -75,6 +77,7 @@ public abstract class ShopExecutionTask implements Runnable {
                 }
 
                 String commandText = command.getText();
+                this.info("Wykonywanie komendy: /" + commandText);
                 this.executeCommand(commandText);
             }
 

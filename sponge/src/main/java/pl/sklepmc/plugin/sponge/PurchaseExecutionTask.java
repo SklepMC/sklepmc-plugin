@@ -59,6 +59,11 @@ public class PurchaseExecutionTask extends ShopExecutionTask {
     }
 
     @Override
+    public void info(String message) {
+        this.logger.info(message);
+    }
+
+    @Override
     public void warning(String message) {
         this.logger.warn(message);
     }
