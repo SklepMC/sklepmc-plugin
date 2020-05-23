@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     
     <artifactId>sklepmc-plugin-sponge</artifactId>
-    <version>1.1-SNAPSHOT</version>
+    <version>1.2-SNAPSHOT</version>
     <name>SklepMC Plugin Sponge</name>
 
     <parent>
